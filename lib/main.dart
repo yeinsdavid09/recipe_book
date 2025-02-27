@@ -23,13 +23,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Recipe Book',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
       ),
       home: DefaultTabController(
         length: 4,
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
             title: const Text('Recipe Book'),
             bottom: const TabBar(
               tabs: [
@@ -38,7 +37,10 @@ class MyApp extends StatelessWidget {
               ],
             ),
           ),
-          body: const TabBarView(children: [HomeScreen(), FavoritesScreen()]),
+          body: const Padding(
+            padding: EdgeInsets.all(10),
+            child: TabBarView(children: [HomeScreen(), FavoritesScreen()]),
+          ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {},
             tooltip: 'Increment',
