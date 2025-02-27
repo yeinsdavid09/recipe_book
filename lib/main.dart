@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:recipe_book/presentation/screens/home_screen.dart';
 import 'package:recipe_book/presentation/screens/favorites_screen.dart';
 
+//* Components
+import 'package:recipe_book/presentation/components/new_recipe_form.dart';
+import 'package:recipe_book/presentation/overlays/modal.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,6 +20,14 @@ class MyApp extends StatelessWidget {
   //#endregion
 
   //#region --------------------------------- Methods ---------------------------------
+
+  Future<void> _showModal(BuildContext context, Widget widget) {
+    return showModalBottomSheet(
+      context: context,
+      builder:
+          (builder) => Modal(widget: widget, onConfirm: () {}, onCancel: () {}),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +53,27 @@ class MyApp extends StatelessWidget {
             padding: EdgeInsets.all(10),
             child: TabBarView(children: [HomeScreen(), FavoritesScreen()]),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {},
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
+          floatingActionButton: Builder(
+            builder:
+                (context) => FloatingActionButton(
+                  onPressed: () {
+                    _showModal(
+                      context,
+                      Column(
+                        spacing: 10,
+                        children: [
+                          Text(
+                            'Create a new recipe',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          const NewRecipeForm(),
+                        ],
+                      ),
+                    );
+                  },
+                  tooltip: 'Add Recipe',
+                  child: const Icon(Icons.add),
+                ),
           ),
         ),
       ),
